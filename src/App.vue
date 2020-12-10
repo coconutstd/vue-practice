@@ -1,17 +1,48 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <button type="button" @click.prevent="onClick">버튼</button>
+    <pie-chart :chart-data="datacollection"></pie-chart>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+/* eslint-disable */
+import PieChart from "@/PieChart";
+import LineChart from "@/LineChart";
 export default {
   name: 'App',
+  data(){
+    return {
+      onClicked: false,
+      datacollection: null
+    }
+  },
   components: {
-    HelloWorld
+    LineChart,
+    PieChart
+  },
+  created() {
+
+  },
+  methods:{
+    onClick(){
+      this.fillData()
+    },
+    fillData(){
+      this.datacollection = {
+        labels: ['red', 'green', 'blue'],
+        datasets: [
+          {
+            label: 'Data One',
+            backgroundColor: ["#41B883", "#E46651", "#00D8FF"],
+            data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+          }
+        ]
+      }
+    },
+    getRandomInt () {
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5
+    }
   }
 }
 </script>
